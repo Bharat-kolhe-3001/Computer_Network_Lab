@@ -1,87 +1,80 @@
 #include <iostream>
 using namespace std;
 
+int discarded_bits = 6;
+int received_frames[100];
 
-void goBackN(int totalFrames) {
-    int ackValue;
-    int resendFrom =0; 
-
-    for (int frame = 1; frame <= totalFrames; frame++) {
-        cout << "Sending frame " << frame << endl;
-        cout << "Enter ACK for frame " << frame << " (1=Received, 0=Lost): ";
-        cin >> ackValue;
-
-        if (ackValue == 0) { 
-            cout << "Acknowledgement not received for frame " << frame << endl;
-            resendFrom = frame;
-            break;
-        } else {
-            cout << "Acknowledgement received for frame " << frame << endl;
-        }
-    }
-
-    if (resendFrom != 0) {
-        cout << "\nResending from frame " << resendFrom << endl;
-        for (int frame = resendFrom; frame <= totalFrames; frame++) {
-            cout << "Sending frame " << frame << endl;
-            cout << "Acknowledgement received for frame " << frame << endl;
-        }
+ 
+ void send_frame_SR(int frame_data, int frame_index, int error_index) {
+    if (frame_index == error_index) {
+        cout << "[ No Acknowledgement ] :: Error At Frame " << frame_index << endl;
+        cout << "[ No Acknowledgement ] :: Number Of Bits Discarded :: " << discarded_bits << endl;
+        cout << "[ Acknowledgement ] :: Re-Transmitting Frame " << frame_index << endl;
+        cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << frame_index << endl;
+        received_frames[frame_index] = frame_data;
+    } else {
+        cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << frame_index << endl;
+        received_frames[frame_index] = frame_data;
     }
 }
 
-
-void selectiveRepeat(int totalFrames) {
-    int ackValue;
-    int lostFrame = -1;
-
-    for (int frame = 1; frame <= totalFrames; frame++) {
-        cout << "Sending frame " << frame << endl;
-        cout << "Enter ACK for frame " << frame << " (1=Received, 0=Lost): ";
-        cin >> ackValue;
-
-        if (ackValue == 0) {
-            cout << "Acknowledgement: -1 (Lost)" << endl;
-            lostFrame = frame;
+ 
+void send_frame_GBN(int total_frames, int error_index) {
+    for (int i = 0; i < total_frames; i++) {
+        if (i == error_index) {
+            cout << "[ No Acknowledgement ] :: Error At Frame " << i << endl;
+            cout << "[ No Acknowledgement ] :: Number Of Bits Discarded :: " << discarded_bits << endl;
+            cout << "[ Acknowledgement ] :: Re-Transmitting From Frame " << i << " to " << total_frames - 1 << endl;
+            for (int j = i; j < total_frames; j++) {
+                cout << "[ Re-Transmission ] :: Sending Frame " << j << endl;
+                cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << j << endl;
+                received_frames[j] = j;
+            }
+            break; 
         } else {
-            cout << "Acknowledgement received for frame " << frame << endl;
+            cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << i << endl;
+            received_frames[i] = i;
         }
-    }
-
-    if (lostFrame != -1) {
-        cout << "\nResending frame " << lostFrame << endl;
-        cout << "Acknowledgement received for frame " << lostFrame << endl;
     }
 }
 
 int main() {
-    int totalFrames, menuChoice;
+    int total_frames;
     cout << "Enter total number of frames: ";
-    cin >> totalFrames;
+    cin >> total_frames;
 
-    do {
-        cout << "\nMenu:\n1. Go-Back-N\n2. Selective Repeat\n3. Exit\nChoice: ";
-        cin >> menuChoice;
-     switch (menuChoice)
-     {
-     case 1:
-          goBackN(totalFrames);
-          break;
+    int error_index;
+    cout << "Enter error frame index : ";
+    cin >> error_index;
 
-     
-      case 2:
-          selectiveRepeat(totalFrames);
-          break;
+    int choice;
+    cout << "\nSelect ARQ Protocol:\n";
+    cout << "1. Go-Back-N\n";
+    cout << "2. Selective Repeat\n";
+    cout << "Enter choice: ";
+    cin >> choice;
 
+    switch (choice) {
+        case 1:
+            cout << "\n[ Protocol ] :: Go-Back-N\n";
+            send_frame_GBN(total_frames, error_index);
+            break;
 
-      case 3:
-         cout<<"Exiting....";
-          break;
+        case 2:
+            cout << "\n[ Protocol ] :: Selective Repeat\n";
+            for (int i = 0; i < total_frames; i++) {
+                send_frame_SR(i, i, error_index);
+            }
+            break;
 
-     default:
-          break;
-     }
+        default:
+            cout << "Invalid choice.\n";
+    }
 
-    } while (menuChoice != 3);
+    cout << "\n[ Receiver ]:: \n";
+    for (int i = 0; i < total_frames; i++) {
+        cout << "Received Frames[" << i << "] = " << received_frames[i] << endl;
+    }
 
     return 0;
 }
