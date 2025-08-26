@@ -5,7 +5,7 @@ int discarded_bits = 6;
 int received_frames[100];
 
  
- void send_frame_SR(int frame_data, int frame_index, int error_index) {
+ void send_frame_SR(int frame_data, int frame_index , int error_index) {
     if (frame_index == error_index) {
         cout << "[ No Acknowledgement ] :: Error At Frame " << frame_index << endl;
         cout << "[ No Acknowledgement ] :: Number Of Bits Discarded :: " << discarded_bits << endl;
@@ -78,5 +78,6 @@ int main() {
 
     return 0;
 }
+
 
 
