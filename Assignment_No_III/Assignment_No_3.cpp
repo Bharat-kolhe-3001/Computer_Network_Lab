@@ -61,7 +61,7 @@ int main() {
             break;
 
         case 2:
-            cout << "\n[ Protocol ] :: Selective Repeat\n";
+            cout << "\n[ Protocol ] :: Selective Repeat \n";
             for (int i = 0; i < total_frames; i++) {
                 send_frame_SR(i, i, error_index);
             }
@@ -78,4 +78,5 @@ int main() {
 
     return 0;
 }
+
 
