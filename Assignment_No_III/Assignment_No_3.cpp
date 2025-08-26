@@ -13,7 +13,7 @@ int received_frames[100];
         cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << frame_index << endl;
         received_frames[frame_index] = frame_data;
     } else {
-        cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << frame_index << endl;
+        cout << "[ Acknowledgement ] :: Frame Received Successfully :: " <<  frame_index << endl;
         received_frames[frame_index] = frame_data;
     }
 }
@@ -78,3 +78,4 @@ int main() {
 
     return 0;
 }
+
