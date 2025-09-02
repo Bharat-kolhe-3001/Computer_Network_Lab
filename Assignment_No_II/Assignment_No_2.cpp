@@ -8,7 +8,7 @@ int main() {
 
     cout << "Enter 4-bit data (from left to right):\n";
     for (int i = 0; i < 4; i++) {
-        cout << "Enter bit " << i + 1 << ": ";
+        cout << "Enter bit " << i + 1 << ": "; 
         cin >> data[i];
     }
 
@@ -64,4 +64,5 @@ int main() {
     cout << received[2] << received[4] << received[5] << received[6] << endl;
 
     return 0;
+
 }
