@@ -30,7 +30,7 @@ int main() {
     }
     cout << endl;
 
-    int received[7];
+    int received[7]; 
     cout << "\nEnter the received 7-bit code (with or without error):\n";
     for (int i = 0; i < 7; i++) {
         cout << "Bit " << i << ": ";
@@ -66,3 +66,4 @@ int main() {
     return 0;
 
 }
+
