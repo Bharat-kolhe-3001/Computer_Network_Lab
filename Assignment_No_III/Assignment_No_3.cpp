@@ -1,49 +1,48 @@
 #include <iostream>
 using namespace std;
 
- int received_frames[100];
- int total_frames;
+int received_frames[100];
+int total_frames;
 
- 
- void send_frame_SR(int frame_data, int frame_index, int error_index) {
+void send_frame_SR(int frame_index, int error_index) {
+    cout << "Sending Frame " << frame_index + 1 << endl;
+
     if (frame_index == error_index) {
-        cout << "[ No Acknowledgement ] :: Error At Frame " << frame_index << endl;
-        cout << "[ Acknowledgement ] :: Re-Transmitting Frame " << frame_index << endl;
-        cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << frame_index << endl;
-        received_frames[frame_index] = frame_data;
+        cout << "[ NACK ] Frame " << frame_index + 1 << " negative  ACK." << endl;
     } else {
-        cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << frame_index << endl;
-        received_frames[frame_index] = frame_data;
+        cout << "[ ACK ] Frame " << frame_index + 1 << " Sending successfully." << endl;
     }
+
+    received_frames[frame_index] = frame_index + 1;
 }
 
- 
 void send_frame_GBN(int total_frames, int error_index) {
     for (int i = 0; i < total_frames; i++) {
+        cout << "Sending Frame " << i + 1 << endl;
+
         if (i == error_index) {
-            cout << "[ No Acknowledgement ] :: Error At Frame " << i << endl;
-            cout << "[ No Acknowledgement ] :: Number Of Bits Discarded :: " << (total_frames-error_index) << endl;
-            cout << "[ Acknowledgement ] :: Re-Transmitting From Frame " << i << " to " << total_frames - 1 << endl;
+            cout << "Error in Frame " << i + 1 << endl;
+            cout << "Re-Transmitting From Frame " << i + 1 
+                 << " to " << total_frames << endl;
+
             for (int j = i; j < total_frames; j++) {
-                cout << "[ Re-Transmission ] :: Sending Frame " << j << endl;
-                cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << j << endl;
-                received_frames[j] = j;
+                cout << "Sending Frame " << j + 1 << endl;
+                received_frames[j] = j + 1;
             }
-            break; 
-        } else {
-            cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << i << endl;
-            received_frames[i] = i;
+            return; 
         }
+
+        received_frames[i] = i + 1;
     }
 }
 
 int main() {
-   
     cout << "Enter total number of frames: ";
     cin >> total_frames;
+     int flag=0;
 
     int error_index;
-    cout << "Enter error frame index : ";
+    cout << "Enter error frame index (-2 if no error): ";
     cin >> error_index;
 
     int choice;
@@ -56,14 +55,27 @@ int main() {
     switch (choice) {
         case 1:
             cout << "\n[ Protocol ] :: Go-Back-N\n";
-            send_frame_GBN(total_frames, error_index);
+            if (error_index >= 0 && error_index < total_frames)
+                send_frame_GBN(total_frames, error_index);
+            else
+                send_frame_GBN(total_frames, -1); 
             break;
 
         case 2:
             cout << "\n[ Protocol ] :: Selective Repeat\n";
+           
             for (int i = 0; i < total_frames; i++) {
-                send_frame_SR(i, i, error_index);
+                if (error_index >= 0 && error_index < total_frames){
+                    send_frame_SR(i, error_index);
+                    flag=1;
             }
+                else
+                    send_frame_SR(i, -1); 
+            }
+           if(flag=1){
+                cout << "\n\n[ ACK ] Frame " << error_index << " Sending successfully." << endl;
+           }
+            
             break;
 
         default:
@@ -72,7 +84,7 @@ int main() {
 
     cout << "\n[ Receiver ]:: \n";
     for (int i = 0; i < total_frames; i++) {
-        cout << "Received Frames[" << i << "] = " << received_frames[i] << endl;
+        cout << "Received Frame[" << i << "] = " << received_frames[i] << endl;
     }
 
     return 0;
