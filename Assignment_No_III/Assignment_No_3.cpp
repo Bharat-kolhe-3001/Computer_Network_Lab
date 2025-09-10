@@ -1,19 +1,18 @@
 #include <iostream>
 using namespace std;
 
-int discarded_bits = 6;
-int received_frames[100];
+ int received_frames[100];
+ int total_frames;
 
  
- void send_frame_SR(int frame_data, int frame_index , int error_index) {
+ void send_frame_SR(int frame_data, int frame_index, int error_index) {
     if (frame_index == error_index) {
         cout << "[ No Acknowledgement ] :: Error At Frame " << frame_index << endl;
-        cout << "[ No Acknowledgement ] :: Number Of Bits Discarded :: " << discarded_bits << endl;
         cout << "[ Acknowledgement ] :: Re-Transmitting Frame " << frame_index << endl;
         cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << frame_index << endl;
         received_frames[frame_index] = frame_data;
     } else {
-        cout << "[ Acknowledgement ] :: Frame Received Successfully :: " <<  frame_index << endl;
+        cout << "[ Acknowledgement ] :: Frame Received Successfully :: " << frame_index << endl;
         received_frames[frame_index] = frame_data;
     }
 }
@@ -23,7 +22,7 @@ void send_frame_GBN(int total_frames, int error_index) {
     for (int i = 0; i < total_frames; i++) {
         if (i == error_index) {
             cout << "[ No Acknowledgement ] :: Error At Frame " << i << endl;
-            cout << "[ No Acknowledgement ] :: Number Of Bits Discarded :: " << discarded_bits << endl;
+            cout << "[ No Acknowledgement ] :: Number Of Bits Discarded :: " << (total_frames-error_index) << endl;
             cout << "[ Acknowledgement ] :: Re-Transmitting From Frame " << i << " to " << total_frames - 1 << endl;
             for (int j = i; j < total_frames; j++) {
                 cout << "[ Re-Transmission ] :: Sending Frame " << j << endl;
@@ -39,7 +38,7 @@ void send_frame_GBN(int total_frames, int error_index) {
 }
 
 int main() {
-    int total_frames;
+   
     cout << "Enter total number of frames: ";
     cin >> total_frames;
 
@@ -61,7 +60,7 @@ int main() {
             break;
 
         case 2:
-            cout << "\n[ Protocol ] :: Selective Repeat \n";
+            cout << "\n[ Protocol ] :: Selective Repeat\n";
             for (int i = 0; i < total_frames; i++) {
                 send_frame_SR(i, i, error_index);
             }
@@ -78,6 +77,3 @@ int main() {
 
     return 0;
 }
-
-
-
