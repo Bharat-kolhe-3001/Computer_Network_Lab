@@ -13,7 +13,7 @@ public class TCPClient {
         int choice = Integer.parseInt(console.readLine());
 
         switch (choice) {
-            case 1:  // Hello
+            case 1:  
                 Socket s1 = new Socket("localhost", 5000);
                 BufferedReader in1 = new BufferedReader(new InputStreamReader(s1.getInputStream()));
                 PrintWriter out1 = new PrintWriter(s1.getOutputStream(), true);
@@ -24,7 +24,7 @@ public class TCPClient {
                 s1.close();
                 break;
 
-            case 2:  // File Transfer
+            case 2: 
                 Socket s2 = new Socket("localhost", 6000);
                 System.out.print("Enter file name to send: ");
                 String filename = console.readLine();
@@ -42,7 +42,7 @@ public class TCPClient {
                 System.out.println("File sent successfully.");
                 break;
 
-            case 3:  // Calculator
+            case 3: 
                 Socket s3 = new Socket("localhost", 7000);
                 BufferedReader in3 = new BufferedReader(new InputStreamReader(s3.getInputStream()));
                 PrintWriter out3 = new PrintWriter(s3.getOutputStream(), true);
