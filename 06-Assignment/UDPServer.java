@@ -6,7 +6,7 @@ public class UDPServer {
         DatagramSocket server = new DatagramSocket(5000);
         byte[] buffer = new byte[1024];
         System.out.println("UDP Server started...");
-
+ 
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
         server.receive(packet);
         String clientMsg = new String(packet.getData(), 0, packet.getLength());
