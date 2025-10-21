@@ -6,7 +6,7 @@ public class SubnettingDemo {
         String bin = "";
         for (int i = 7; i >= 0; i--) {
             bin += ((n >> i) & 1) == 1 ? "1" : "0";
-        }
+        } 
         return bin;
     }
 
