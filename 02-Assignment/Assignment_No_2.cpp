@@ -13,7 +13,7 @@ int main() {
     }
 
    
-    code[2] = data[0]; 
+    code[2] = data[0];  
     code[4] = data[1];  
     code[5] = data[2]; 
     code[6] = data[3];  
