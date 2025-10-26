@@ -4,7 +4,7 @@ using namespace std;
 int main() {
     int data[4];    
     int code[7];     
-
+ 
 
     cout << "Enter 4-bit data (from left to right):\n";
     for (int i = 0; i < 4; i++) {
