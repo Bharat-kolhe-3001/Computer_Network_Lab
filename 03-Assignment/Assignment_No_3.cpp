@@ -13,7 +13,7 @@ void send_frame_SR(int frame_index, int error_index) {
         cout << "[ ACK ] Frame " << frame_index + 1 << " Sending successfully." << endl;
     }
 
-    received_frames[frame_index] = frame_index + 1;
+    received_frames[frame_index] = frame_index + 1; 
 }
  
 void send_frame_GBN(int total_frames, int error_index) {
