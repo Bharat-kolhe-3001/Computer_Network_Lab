@@ -7,7 +7,7 @@ public class TCPClient {
         System.out.println("1. Say Hello");
         System.out.println("2. File Transfer");
         System.out.println("3. Calculator");
-        System.out.print("Enter your choice: ");
+        System.out.print("Enter your choice: "); 
 
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
         int choice = Integer.parseInt(console.readLine());
@@ -62,3 +62,4 @@ public class TCPClient {
         System.out.println("Client Task Completed.");
     }
 }
+
