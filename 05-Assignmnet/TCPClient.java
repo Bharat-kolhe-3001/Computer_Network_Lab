@@ -10,7 +10,7 @@ public class TCPClient {
         System.out.print("Enter your choice: "); 
 
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-        int choice = Integer.parseInt(console.readLine());
+        int choice = Integer.parseInt(console.readLine()); 
 
         switch (choice) {
             case 1:  
@@ -62,4 +62,5 @@ public class TCPClient {
         System.out.println("Client Task Completed.");
     }
 }
+
 
