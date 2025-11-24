@@ -116,8 +116,6 @@ Push configuration changes
 
 Monitor device health via API
 
-Test APIs of network controllers like Cisco DNA Center
-
 5. Comparison Table
 Feature	Ansible	Python	Postman
 Type	Automation tool	Programming language	API testing tool
