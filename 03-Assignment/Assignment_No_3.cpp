@@ -6,7 +6,7 @@ int total_frames;
 
 void send_frame_SR(int frame_index, int error_index) {
     cout << "Sending Frame " << frame_index + 1 << endl;
-
+  //condition  for error checking
     if (frame_index == error_index) {
         cout << "[ NACK ] Frame " << frame_index + 1 << " negative  ACK." << endl;
     } else {
@@ -89,3 +89,4 @@ int main() {
 
     return 0;
 }
+
