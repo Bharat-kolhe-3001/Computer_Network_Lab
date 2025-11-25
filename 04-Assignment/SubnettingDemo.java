@@ -9,7 +9,7 @@ public class SubnettingDemo {
         } 
         return bin;
     }
-
+  //bintodec conversion
     public static int binToDec(String bin) {
         int val = 0;
         for (int i = 0; i < 8; i++) {
@@ -107,5 +107,6 @@ public class SubnettingDemo {
         sc.close();
     }
 }
+
 
 
