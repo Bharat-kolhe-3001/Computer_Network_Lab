@@ -15,7 +15,7 @@ void send_frame_SR(int frame_index, int error_index) {
 
     received_frames[frame_index] = frame_index + 1; 
 }
- 
+ //function for send frame GBN
 void send_frame_GBN(int total_frames, int error_index) {
     for (int i = 0; i < total_frames; i++) {
         cout << "Sending Frame " << i + 1 << endl;
@@ -89,4 +89,5 @@ int main() {
 
     return 0;
 }
+
 
