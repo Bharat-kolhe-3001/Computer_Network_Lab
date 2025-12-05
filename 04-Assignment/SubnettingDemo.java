@@ -4,6 +4,7 @@ public class SubnettingDemo {
 
     public static String decToBin(int n) {
         String bin = "";
+        
         for (int i = 7; i >= 0; i--) { 
             bin += ((n >> i) & 1) == 1 ? "1" : "0";
         } 
@@ -107,6 +108,7 @@ public class SubnettingDemo {
         sc.close();
     }
 }
+
 
 
 
