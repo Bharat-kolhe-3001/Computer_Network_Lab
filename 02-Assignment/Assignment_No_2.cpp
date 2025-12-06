@@ -5,7 +5,7 @@ int main() {
     int data[4];    
     int code[7];      
  
-
+    //Enter 4 Bit 
     cout << "Enter 4-bit data (from left to right):\n";
     for (int i = 0; i < 4; i++) {
         cout << "Enter bit " << i + 1 << ": "; 
@@ -66,6 +66,7 @@ int main() {
     return 0;
 
 }
+
 
 
 
