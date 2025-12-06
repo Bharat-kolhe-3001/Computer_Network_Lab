@@ -37,6 +37,7 @@ void send_frame_GBN(int total_frames, int error_index) {
 }
 
 int main() {
+    //Total frame
     cout << "Enter total number of frames: ";
     cin >> total_frames;
      int flag=0;
@@ -89,5 +90,6 @@ int main() {
 
     return 0;
 }
+
 
 
