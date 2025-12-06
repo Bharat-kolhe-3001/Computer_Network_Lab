@@ -23,7 +23,7 @@ int main() {
     code[1] = code[2] ^ code[5] ^ code[6]; 
     code[3] = code[4] ^ code[5] ^ code[6]; 
 
- 
+    //Haming code
     cout << "\7-bit Hamming Code: ";
     for (int i = 0; i < 7; i++) {
         cout << code[i];
@@ -66,6 +66,7 @@ int main() {
     return 0;
 
 }
+
 
 
 
